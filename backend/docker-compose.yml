@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  openplc:
+    image: fdamador/openplc
+    container_name: openplc_reactor
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "502:502"
+      - "8081:8080"
+    environment:
+      - OS=linux
+    networks:
+      ot_network:
+        ipv4_address: 172.18.0.5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: argus_backend
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8000:8000"
+    environment:
+      - MODBUS_HOST=172.18.0.5
+      - MODBUS_PORT=502
+      - DB_PATH=/app/data/ot_security.db
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - openplc
+    networks:
+      ot_network:
+        ipv4_address: 172.18.0.10
+    restart: unless-stopped
+
+networks:
+  ot_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24

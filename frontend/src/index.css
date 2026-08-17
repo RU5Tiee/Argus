@@ -1,0 +1,157 @@
+:root {
+  /* ISA-101 Dark Theme Color Tokens */
+  --bg-primary: #0B0F19;         /* Deep Matte Navy/Slate */
+  --bg-card: #151D2A;            /* Dark Matte Charcoal */
+  --border-color: #1E293B;       /* Low-Contrast Grey */
+  --text-primary: #F8FAFC;       /* High-Contrast Off-White */
+  --text-muted: #64748B;         /* Slate Grey */
+  --color-inactive: #475569;     /* Dark Grey for stopped/off */
+  --color-flow-cyan: #0EA5E9;    /* Muted Cyan for active paths */
+  --color-alarm-critical: #EF4444;/* Red (Priority 1) */
+  --color-alarm-high: #F97316;   /* Orange (Priority 2) */
+  --color-alarm-medium: #EAB308; /* Yellow (Priority 3) */
+  --color-alarm-low: #06B6D4;    /* Cyan (Priority 4) */
+
+  /* Global Fonts */
+  --font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  overflow: hidden; /* Strict no-scroll at root */
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* ISA-101 High-Performance HMI Design Utilities */
+.text-normal {
+  color: var(--text-primary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-cyan {
+  color: var(--color-flow-cyan);
+}
+
+.text-critical {
+  color: var(--color-alarm-critical);
+}
+
+.text-high {
+  color: var(--color-alarm-high);
+}
+
+.text-medium {
+  color: var(--color-alarm-medium);
+}
+
+.text-low {
+  color: var(--color-alarm-low);
+}
+
+/* No-Scroll Page Grid and layout helpers */
+.no-scroll-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  gap: 16px;
+}
+
+.no-scroll-content {
+  display: grid;
+  gap: 16px;
+  overflow: hidden; /* Crucial: children must manage their own sizing */
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Panel Design System (Flat, No 3D shadows/effects for ISA-101 compliance) */
+.isa-panel {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Do not overflow */
+}
+
+.isa-panel-header {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+/* Tab Bar and Navigation styling */
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-family);
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.nav-tab:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+  color: var(--text-primary);
+}
+
+.nav-tab.active {
+  background-color: rgba(14, 165, 233, 0.05); /* Cyan highlight tint */
+  border-left-color: var(--color-flow-cyan);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Scrollbar styling for rare cases (e.g. historical tables) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
